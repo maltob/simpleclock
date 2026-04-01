@@ -329,3 +329,4 @@ window.addEventListener('keydown', toggleSettings);
 setInterval(updateClock, 1000);
 updateClock();
 loadSettingsFromHash();
+document.body.classList.remove('loading');

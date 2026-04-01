@@ -21,6 +21,11 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    transition: opacity 0.4s ease;
+}
+
+body.loading {
+    opacity: 0;
 }
 
 #bg-image {
