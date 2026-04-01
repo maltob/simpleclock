@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Static Clock</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&family=Outfit:wght@300;700&family=Roboto+Mono&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="bg-image"></div>
+    <div id="clock-container">
+        <div id="custom-text"></div>
+        <div id="clock">00:00:00<span id="ampm"></span></div>
+    </div>
+    <div id="schedule-list" class="hidden"></div>
+    <div id="countdown-banner" class="hidden"></div>
+
+    <div id="schedule-modal" class="modal hidden">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h3>Weekly Schedule</h3>
+                <button id="close-schedule-modal" class="close-btn">&times;</button>
+            </div>
+            <div id="day-tabs">
+                <button class="day-tab active" data-day="1">Mon</button>
+                <button class="day-tab" data-day="2">Tue</button>
+                <button class="day-tab" data-day="3">Wed</button>
+                <button class="day-tab" data-day="4">Thu</button>
+                <button class="day-tab" data-day="5">Fri</button>
+                <button class="day-tab" data-day="6">Sat</button>
+                <button class="day-tab" data-day="0">Sun</button>
+            </div>
+            <div id="schedule-editor-rows">
+                <!-- Dynamic rows -->
+            </div>
+            <div class="modal-footer">
+                <div class="toolbar-left">
+                    <select id="copy-day-select" class="btn secondary">
+                        <option value="">Copy From...</option>
+                        <option value="1">Monday</option>
+                        <option value="2">Tuesday</option>
+                        <option value="3">Wednesday</option>
+                        <option value="4">Thursday</option>
+                        <option value="5">Friday</option>
+                        <option value="6">Saturday</option>
+                        <option value="0">Sunday</option>
+                    </select>
+                </div>
+                <div class="toolbar-right">
+                    <button id="add-schedule-row" class="btn secondary">+ Add Activity</button>
+                    <button id="save-schedule" class="btn primary">Apply Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-panel" class="hidden">
+        <h2>Settings</h2>
+        <div class="setting-group">
+            <label for="font-size">Font Size (px)</label>
+            <input type="number" id="font-size" value="250" min="20" max="600">
+        </div>
+        <div class="setting-group">
+            <label for="font-family">Font</label>
+            <select id="font-family">
+                <optgroup label="Modern Fonts">
+                    <option value="'Outfit', sans-serif">Outfit</option>
+                    <option value="'Inter', sans-serif">Inter</option>
+                    <option value="'Roboto Mono', monospace">Roboto Mono</option>
+                </optgroup>
+                <optgroup label="Web Safe - Sans Serif">
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="Verdana, sans-serif">Verdana</option>
+                    <option value="Helvetica, sans-serif">Helvetica</option>
+                    <option value="Tahoma, sans-serif">Tahoma</option>
+                    <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                    <option value="system-ui, sans-serif">System UI</option>
+                </optgroup>
+                <optgroup label="Web Safe - Serif">
+                    <option value="'Times New Roman', serif">Times New Roman</option>
+                    <option value="Georgia, serif">Georgia</option>
+                    <option value="Garamond, serif">Garamond</option>
+                </optgroup>
+                <optgroup label="Web Safe - Monospace">
+                    <option value="'Courier New', monospace">Courier New</option>
+                    <option value="Monaco, monospace">Monaco</option>
+                </optgroup>
+                <optgroup label="Web Safe - Cursive">
+                    <option value="'Brush Script MT', cursive">Brush Script MT</option>
+                    <option value="Comic Sans MS, cursive">Comic Sans MS</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="setting-group">
+            <label for="text-color">Text Color</label>
+            <input type="color" id="text-color" value="#ffffff">
+        </div>
+        <div class="setting-group">
+            <label for="bg-color">Background Color</label>
+            <input type="color" id="bg-color" value="#121212">
+        </div>
+        <div class="setting-group toggle-group">
+            <label for="hour-format">24-Hour Format</label>
+            <input type="checkbox" id="hour-format" checked>
+        </div>
+        <div class="setting-group toggle-group">
+            <label for="show-seconds">Show Seconds</label>
+            <input type="checkbox" id="show-seconds" checked>
+        </div>
+        <div class="setting-group">
+            <label for="schedule-mode">Schedule Display</label>
+            <select id="schedule-mode">
+                <option value="hidden">Hidden</option>
+                <option value="list">Full List</option>
+                <option value="countdown">Next Event Countdown</option>
+            </select>
+        </div>
+        <div class="setting-group">
+            <label>Schedule Manager</label>
+            <button id="open-schedule-modal" class="btn primary w-full">Edit Weekly Schedule</button>
+        </div>
+        <hr class="separator">
+        <div class="setting-group">
+            <label for="bg-image-url">Background Image URL</label>
+            <input type="text" id="bg-image-url" placeholder="Enter image URL">
+        </div>
+        <div class="setting-group">
+            <label for="bg-image-opacity">Image Opacity (0–1)</label>
+            <input type="range" id="bg-image-opacity" min="0" max="1" step="0.01" value="1">
+        </div>
+        <div class="setting-group">
+            <label for="custom-text-input">Custom Text</label>
+            <input type="text" id="custom-text-input" placeholder="Optional text above clock">
+        </div>
+        <p class="hint">Press <strong>Alt + S</strong> to toggle settings</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
